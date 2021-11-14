@@ -59,12 +59,14 @@ public class PersonDAO {
     }
 
     public Person show(int id) {
-        Person person = new Person();
+        Person person = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Person WHERE id=?");
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
 
+            person = new Person();
             person.setId(resultSet.getInt("id"));
             person.setName(resultSet.getString("name"));
             person.setAge(resultSet.getInt("age"));
