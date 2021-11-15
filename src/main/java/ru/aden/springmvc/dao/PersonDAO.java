@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 public class PersonDAO {
-    private static int peopleCount = 0;
+    private static int peopleCount = 1;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -21,8 +21,8 @@ public class PersonDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Person> index() {
-        return jdbcTemplate.query("SELECT * FROM Person", new BeanPropertyRowMapper<>(Person.class));
+    public List<Person> showFirstTwentyPeople() {
+        return jdbcTemplate.query("SELECT * FROM Person LIMIT 20", new BeanPropertyRowMapper<>(Person.class));
     }
 
     public Person show(int id) {
@@ -32,7 +32,7 @@ public class PersonDAO {
     }
 
     public void save(Person person) {
-        jdbcTemplate.update("INSERT INTO Person VALUES (?,?,?,?)", ++peopleCount, person.getName(),
+        jdbcTemplate.update("INSERT INTO Person VALUES (?,?,?,?)", peopleCount++, person.getName(),
                 person.getAge(), person.getEmail());
     }
 

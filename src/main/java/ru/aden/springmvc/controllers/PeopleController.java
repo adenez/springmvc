@@ -23,7 +23,7 @@ public class PeopleController {
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("people", personDAO.index());
+        model.addAttribute("people", personDAO.showFirstTwentyPeople());
         return "people/index";
     }
 
